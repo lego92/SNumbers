@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.IO;
 
 namespace SNumbers
 {
@@ -26,19 +27,46 @@ namespace SNumbers
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                filepath = openFileDialog1.FileName;
                 txtbxFilePath.Text = openFileDialog1.FileName;
+                btnExtractNumbers.Enabled = true;
             }
 
-            btnExtractNumbers.Enabled = true;
+            
         }
 
         private void btnExtractNumbers_Click(object sender, EventArgs e)
         {
-            XmlDocument config = new XmlDocument();
 
-            config.Load(filepath);
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                StreamWriter streamWriter = File.CreateText(saveFileDialog1.FileName);//new StreamWriter(saveFileDialog1.FileName);
 
-            XmlNode root = config.DocumentElement;
+                XmlDocument config = new XmlDocument();
+
+                config.Load(filepath);
+
+                XmlNode root = config.DocumentElement;
+
+                foreach (XmlNode node in root)
+                {
+                    if (node.Name == "ISA" || node.Name == "ISC")
+                    {
+                        foreach (XmlNode item in node.ChildNodes)
+                        {
+                            if (item.Name == "FACTORY_NUM")
+                            {
+                                streamWriter.WriteLine(item.InnerText);
+                            }
+                        }
+                    }
+                }
+
+                streamWriter.Close();
+
+                MessageBox.Show(" Номера датчиков сохранены в файл " + saveFileDialog1.FileName );
+
+            }
         }
     }
 }
