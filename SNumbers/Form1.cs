@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace SNumbers
 {
     public partial class Form1 : Form
     {
+        string filepath;
+
         public Form1()
         {
             InitializeComponent();
@@ -25,11 +28,17 @@ namespace SNumbers
             {
                 txtbxFilePath.Text = openFileDialog1.FileName;
             }
+
+            btnExtractNumbers.Enabled = true;
         }
 
-        private void EAParser()
+        private void btnExtractNumbers_Click(object sender, EventArgs e)
         {
+            XmlDocument config = new XmlDocument();
 
+            config.Load(filepath);
+
+            XmlNode root = config.DocumentElement;
         }
     }
 }

@@ -65,6 +65,7 @@
             this.btnExtractNumbers.TabIndex = 2;
             this.btnExtractNumbers.Text = "Извлечь номера";
             this.btnExtractNumbers.UseVisualStyleBackColor = true;
+            this.btnExtractNumbers.Click += new System.EventHandler(this.btnExtractNumbers_Click);
             // 
             // Form1
             // 
