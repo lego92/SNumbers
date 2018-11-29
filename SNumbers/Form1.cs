@@ -23,7 +23,7 @@ namespace SNumbers
 
         private void btnOpenConfigFile_Click(object sender, EventArgs e)
         {
-            openFileDialog1.Filter = "Файл конфигурации МикроСРЗ (.ea)| *.ea";
+            //openFileDialog1.Filter = "Файл конфигурации МикроСРЗ (.ea)| *.ea";
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -32,7 +32,7 @@ namespace SNumbers
                 btnExtractNumbers.Enabled = true;
             }
 
-            
+
         }
 
         private void btnExtractNumbers_Click(object sender, EventArgs e)
@@ -40,7 +40,7 @@ namespace SNumbers
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                StreamWriter streamWriter = File.CreateText(saveFileDialog1.FileName);//new StreamWriter(saveFileDialog1.FileName);
+                StreamWriter streamWriter = new StreamWriter(saveFileDialog1.FileName);//new StreamWriter(saveFileDialog1.FileName);
 
                 XmlDocument config = new XmlDocument();
 
@@ -64,8 +64,7 @@ namespace SNumbers
 
                 streamWriter.Close();
 
-                MessageBox.Show(" Номера датчиков сохранены в файл " + saveFileDialog1.FileName );
-
+                MessageBox.Show(" Номера датчиков сохранены в файл " + saveFileDialog1.FileName);
             }
         }
     }
